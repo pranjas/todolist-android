@@ -11,7 +11,7 @@ import com.example.windup.data.model.LoggedInUser;
 /**
  * Class exposing authenticated user details to the UI.
  */
-class LoggedInUserView {
+public class LoggedInUserView {
     private LoggedInUser loggedInUser;
     //... other data fields that may be accessible to the UI
 

@@ -30,6 +30,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.windup.Application;
 import com.example.windup.ApplicationConstants;
 import com.example.windup.R;
 import com.example.windup.data.model.LoggedInUser;
@@ -92,6 +93,12 @@ public class LoginActivity extends AppCompatActivity {
     }
     /*
      * Start google signin Activity.
+     * TODO: Make it more simpler.
+     * So we could be here
+     * 1) When the user is first signing-in to our app for the very first time.
+     * 2) She/he has signed in earlier so instead of opening a "pop-up" try a silentSignIn.
+     * 3) In case silentSignIn fails for any reason other than "token-expired" use the "pop-up"
+     *    flow.
      */
     private boolean doGoogleSignIn() {
         googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
@@ -128,6 +135,12 @@ public class LoginActivity extends AppCompatActivity {
         return !(googleSignInAccount == null);
     }
 
+    /*
+     * We'll be coming here from multiple screens at the end.
+     * Currently we only handle the GoogleSignIn activity result however
+     * we could be in one of the settings or TODO item's screen as well.
+     * We'll add more handlers without modifying this piece of code again.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         for (ActivityResultHandler handler : activityResultHandlers) {
@@ -151,6 +164,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    /*
+     * TODO: We still need to save state for orientation changes,
+     * viz, after clicking on googleSignIn if we rotate the device while
+     * waiting for the token verification.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -203,6 +221,7 @@ public class LoginActivity extends AppCompatActivity {
                         return;
                     }
                     updateUiWithUser(loginResult.getSuccess());
+                    Application.setLoggedInUserView(loggedInUserView);
                 }
                 loggedIn = true;
                 startActivity(new Intent().setClass(LoginActivity.this,
@@ -278,7 +297,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         /*
          * We need to know if we were already logged in earlier when
-         * the app state was saved.
+         * the app state was saved. This isn't really useful currently.
          */
         outState.putBoolean(InstanceKeyLoggedIn, loggedIn);
     }
