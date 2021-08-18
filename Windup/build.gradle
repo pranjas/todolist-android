@@ -1,0 +1,87 @@
+/*
+ * Copyright (c) 2021.
+ * Author: Pranay Kr. Srivastava <pranjas@gmail.com>
+ * Released Under GNU-GPLv3
+ */
+
+apply plugin: 'com.android.application'
+
+def keyStorePropertiesFile = rootProject.file("keystore.details");
+def keyStoreProperties = new Properties();
+keyStoreProperties.load(new InputStreamReader(new FileInputStream(keyStorePropertiesFile)));
+
+android {
+    signingConfigs {
+        release {
+            storeFile file(keyStoreProperties['keyStoreFile'])
+            storePassword keyStoreProperties['keyStorePassword']
+            keyPassword keyStoreProperties['keyPassword']
+            keyAlias keyStoreProperties['keyAlias']
+        }
+        debug {
+            storeFile file(keyStoreProperties['keyStoreFile'])
+            storePassword keyStoreProperties['keyStorePassword']
+            keyPassword keyStoreProperties['keyPassword']
+            keyAlias keyStoreProperties['keyAlias']
+        }
+    }
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
+
+    defaultConfig {
+        applicationId "com.example.windup"
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            versionNameSuffix '.release'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            versionNameSuffix '.debug'
+        }
+    }
+    flavorDimensions 'basic'
+    productFlavors {
+        prerelease {
+            dimension 'basic'
+            signingConfig signingConfigs.release
+            targetSdkVersion 30
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    def paging_version = "2.1.2"
+    implementation "androidx.paging:paging-runtime:$paging_version" // For Kotlin use paging-runtime-ktx
+
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+}
