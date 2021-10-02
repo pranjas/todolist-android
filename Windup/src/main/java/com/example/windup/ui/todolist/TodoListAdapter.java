@@ -37,7 +37,7 @@ public class TodoListAdapter extends PagedListAdapter<TodoItem, TodoListViewHold
     public void onBindViewHolder(@NonNull TodoListViewHolder holder, int position) {
         TodoItem todoItem = getItem(position);
         if (todoItem != null) {
-            holder.setDescription(todoItem.getDescription());
+            holder.setDescription(todoItem.getName());
             holder.setEndDate(todoItem.getEndDate().toString());
             holder.setStartDate(todoItem.getStartDate().toString());
 

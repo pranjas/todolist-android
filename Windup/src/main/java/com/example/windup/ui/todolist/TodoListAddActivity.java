@@ -15,6 +15,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.windup.Application;
 import com.example.windup.ApplicationConstants;
 import com.example.windup.R;
@@ -46,6 +49,8 @@ public class TodoListAddActivity extends AppCompatActivity {
                             .get(TodoItemViewModel.class);
         todoItemViewModel.getTodoItemAPIResult().observe(this, result ->
         {
+            if (result == null)
+                return;
             if (result instanceof Result.Success) {
                 Object data= ((Result.Success) result).getData();
                 if (data instanceof Response) {
@@ -61,6 +66,8 @@ public class TodoListAddActivity extends AppCompatActivity {
                             Log.d(ApplicationConstants.LOG_TAG, response.toString());
                     }
                 }
+                Toast.makeText(this, R.string.todoItemAddedSuccess,Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
         setUpListeners();
@@ -85,6 +92,10 @@ public class TodoListAddActivity extends AppCompatActivity {
             //Save to backend.
             if (todoItem.getId().length() == 0)
                 todoItem.setId(String.valueOf(Calendar.getInstance().getTimeInMillis()));
+            TextView description = findViewById(R.id.description);
+            todoItem.setDescription(description.getText().toString());
+            TextView largeDescription = findViewById(R.id.editTextDescription2);
+            todoItem.setName(largeDescription.getText().toString());
             todoItemViewModel.addTodoItem(todoItem,
                     Application.getLoggedInUser().getLoggedInUser());
         });

@@ -33,6 +33,7 @@ public class TodoItemNetworkDataSource {
 
     private Result doGenericAPI(TodoItem item, Map<String, String> headers, APIName apiName,
                                 int offset, int count, boolean shared) {
+        String requestID = headers.get("Request-id");
         try {
             WindupAPIService apiService = WindupAPIServiceImpl.getInstance(Response.class, new
                     WindupAPITodoItemResponseDeserializer()).getService();
@@ -72,7 +73,7 @@ public class TodoItemNetworkDataSource {
                     fromServer = new Response();
                     fromServer.errorCode = response.code();
                 }
-                return new Result.Error(new ApplicationException((int)fromServer.errorCode));
+                return new Result.Error(new ApplicationException((int)fromServer.errorCode), requestID);
             } else {
                 fromServer = response.body();
                 switch (apiName) {
@@ -89,11 +90,11 @@ public class TodoItemNetworkDataSource {
                         fromServer.apiName = Response.APIName.API_EDIT;
                         break;
                 }
-                return new Result.Success<Response>(fromServer);
+                return new Result.Success<Response>(fromServer, requestID);
             }
         } catch (IOException e) {
             Log.d(ApplicationConstants.LOG_TAG, "Error executing edit api: " + e.getMessage());
-            return new Result.Error(new ApplicationException(e));
+            return new Result.Error(new ApplicationException(e), requestID);
         }
     }
 

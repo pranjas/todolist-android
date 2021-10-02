@@ -49,14 +49,14 @@ public class TodoListViewHolder extends RecyclerView.ViewHolder {
 
     public void bindView() {
 
-        TextView textView = itemView.findViewById(R.id.labelDescription);
+        TextView textView = itemView.findViewById(R.id.description);
 
         textView.setText(description);
 
-        textView = itemView.findViewById(R.id.labelStart);
+        textView = itemView.findViewById(R.id.start);
         textView.setText(startDate);
 
-        textView = itemView.findViewById(R.id.labelEnd);
+        textView = itemView.findViewById(R.id.end);
         textView.setText(endDate);
     }
 }

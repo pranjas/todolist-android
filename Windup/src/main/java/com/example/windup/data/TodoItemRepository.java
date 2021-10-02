@@ -6,14 +6,11 @@
 
 package com.example.windup.data;
 
-import com.example.windup.apiaccess.APIAccess;
-import com.example.windup.data.model.LoggedInUser;
 import com.example.windup.apiaccess.model.TodoItem;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -21,7 +18,7 @@ import java.util.concurrent.Executors;
 public class TodoItemRepository {
     private static volatile TodoItemRepository instance;
     private TodoItemNetworkDataSource dataSource;
-    private TodoItemPositionalDataSource positionalDataSource;
+    private TodoItemKeyedDataSource positionalDataSource;
     private MutableLiveData<Result> repositoryLiveData;
     private DataSourceType type;
     public enum DataSourceType {
@@ -38,7 +35,7 @@ public class TodoItemRepository {
             case NETWORK:
                 break;
             case POSITIONAL:
-                positionalDataSource = new TodoItemPositionalDataSource(dataSource);
+                positionalDataSource = new TodoItemKeyedDataSource(dataSource);
                 break;
             default:
                 break;
@@ -48,7 +45,7 @@ public class TodoItemRepository {
     public DataSourceType getType() {
         return  type;
     }
-    public TodoItemPositionalDataSource getPositionalDataSource() {
+    public TodoItemKeyedDataSource getPositionalDataSource() {
         return positionalDataSource;
     }
     public static TodoItemRepository getInstance(DataSourceType type) {
@@ -73,42 +70,30 @@ public class TodoItemRepository {
     }
     public void getTodoItem(final TodoItem item, final Map<String, String> headers) {
         Executor executor = Executors.newSingleThreadExecutor();
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                Result result = dataSource.getTodoItem(item, headers);
-                repositoryLiveData.postValue(result);
-            }
+        executor.execute(() -> {
+            Result result = dataSource.getTodoItem(item, headers);
+            repositoryLiveData.postValue(result);
         });
     }
     public void updateTodoItem(final TodoItem item,  final Map<String, String>headers) {
         Executor executor = Executors.newSingleThreadExecutor();
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                Result result = dataSource.updateTodoItem(item, headers);
-                repositoryLiveData.postValue(result);
-            }
+        executor.execute(() -> {
+            Result result = dataSource.updateTodoItem(item, headers);
+            repositoryLiveData.postValue(result);
         });
     }
     public void deleteTodoItem(final TodoItem item, final Map<String, String>headers) {
         Executor executor = Executors.newSingleThreadExecutor();
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                Result result = dataSource.removeTodoItem(item, headers);
-                repositoryLiveData.postValue(result);
-            }
+        executor.execute(() -> {
+            Result result = dataSource.removeTodoItem(item, headers);
+            repositoryLiveData.postValue(result);
         });
     }
     public void addTodoItem(final TodoItem item, final Map<String, String> headers) {
         Executor executor = Executors.newSingleThreadExecutor();
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                Result result = dataSource.addTodoItem(item, headers);
-                repositoryLiveData.postValue(result);
-            }
+        executor.execute(() -> {
+            Result result = dataSource.addTodoItem(item, headers);
+            repositoryLiveData.postValue(result);
         });
     }
 }

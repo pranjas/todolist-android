@@ -28,19 +28,15 @@
     <!-- Description Text. -->
     <TextView
         android:id="@+id/description"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:maxLines="3"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintLeft_toRightOf="@id/labelDescription"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:ellipsize="end"
-        android:scrollHorizontally="true"
-        />
+        android:text="Description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/labelDescription"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Start -->
     <TextView
@@ -58,34 +54,31 @@
 
     <TextView
         android:id="@+id/start"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@color/blue"
 
         android:ellipsize="end"
-        android:maxLines="3"
         app:layout_constraintEnd_toStartOf="@id/guidelineVertical_1"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/description"
         app:layout_constraintTop_toBottomOf="@id/description"
-        android:scrollHorizontally="true"
         />
 
     <TextView
         android:id="@+id/labelEnd"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@color/green"
         android:text="@string/todoItemEnd"
-        app:layout_constraintStart_toEndOf="@id/start"
+        app:layout_constraintStart_toEndOf="@id/guidelineVertical_1"
         app:layout_constraintTop_toBottomOf="@id/description" />
 
     <TextView
         android:id="@+id/end"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -94,7 +87,6 @@
         app:layout_constraintTop_toBottomOf="@id/description"
         android:background="@color/red"
         android:ellipsize="end"
-        android:maxLines="3"
         android:scrollHorizontally="true"
         />
 

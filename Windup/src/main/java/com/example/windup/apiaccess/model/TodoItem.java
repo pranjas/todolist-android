@@ -31,6 +31,7 @@ public class TodoItem {
     private transient boolean isOwner;
     private transient boolean isShared;
     private ArrayList<String> sharedWith;
+    private transient int index;
     private String name;
 
     public TodoItem() {
@@ -122,5 +123,13 @@ public class TodoItem {
             return false;
         TodoItem item = (TodoItem)obj;
         return item.id.equals(this.id);
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

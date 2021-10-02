@@ -10,8 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.windup.data.TodoItemNetworkDataSource;
-import com.example.windup.data.TodoItemPositionalDataSource;
 import com.example.windup.data.TodoItemRepository;
 
 public class TodoItemViewModelFactory implements ViewModelProvider.Factory {

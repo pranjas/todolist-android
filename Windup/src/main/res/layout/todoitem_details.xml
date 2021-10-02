@@ -7,7 +7,6 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -32,7 +31,6 @@
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin_double"
         android:text="@string/todoItemDescriptionLabel"
         app:layout_constraintEnd_toEndOf="@id/guideline"
@@ -90,7 +88,7 @@
        android:id="@+id/datePickerButton"
        app:layout_constraintStart_toStartOf="@id/guideline"
        app:layout_constraintTop_toBottomOf="@id/editTextDescription2"
-       android:layout_marginLeft="@dimen/activity_horizontal_margin"
+       android:layout_marginStart="@dimen/activity_horizontal_margin"
        android:layout_marginTop="@dimen/activity_vertical_margin"
        app:layout_constraintRight_toRightOf="parent"
        android:text="Select Date"
@@ -102,7 +100,7 @@
         app:layout_constraintTop_toBottomOf="@id/dateLabel"
         app:layout_constraintStart_toStartOf="@id/guidelineLeft"
         app:layout_constraintEnd_toEndOf="@id/guideline"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin_triple"
         android:text="@string/todoItemEnd"
         app:layout_constraintHorizontal_bias="0.0"
@@ -113,7 +111,7 @@
         android:id="@+id/enddatePickerButton"
         app:layout_constraintStart_toStartOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/datePickerButton"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         app:layout_constraintRight_toRightOf="parent"
         android:text="Select Date"
@@ -142,7 +140,8 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:inputType="text"
         app:layout_constraintHorizontal_bias="0.7"
-        android:hint=""
+        android:hint="@string/todoItemDescription"
+        android:autofillHints="name"
         android:id="@+id/sharedWithText"
         />
     <ImageButton
@@ -155,7 +154,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        />
+        android:contentDescription="Add" />
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
